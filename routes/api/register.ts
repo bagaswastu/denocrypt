@@ -8,12 +8,7 @@ export const handler: Handlers = {
     console.log(cookies);
 
     if (cookies["uuid"]) {
-      const kv = await Deno.openKv();
-      const user = await kv.get<User>(["users", cookies["uuid"]]);
-
-      if (user) {
-        return new Response('ok');
-      }
+      return new Response('ok');
     }
 
     const data: User = {

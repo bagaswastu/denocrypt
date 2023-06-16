@@ -23,21 +23,22 @@ export const handler: Handlers = {
       }
 
       const kv = await Deno.openKv();
-      const user = await kv.get<User>(["users", uuid]);
+      const res = await kv.get<User>(["users", uuid]);
 
-      if (!user.value) {
+      if (!res.value) {
         return ctx.renderNotFound();
       }
-
-      if (!user.value?.isWinner) {
-        kv.set(["users", uuid], {
-          ...user.value,
+      let user = res.value;
+      if (!res.value?.isWinner) {
+        user = {
+          ...user,
           endTimestamp: Date.now(),
           isWinner: true,
-        });
+        };
+        kv.set(["users", uuid], user);
       }
 
-      return await ctx.render(user.value);
+      return await ctx.render(user);
     }
 
     return ctx.renderNotFound();
