@@ -5,16 +5,14 @@ import { User } from "../utils/interface.ts";
 import dayjs from "https://cdn.skypack.dev/dayjs";
 import relativeTime from "https://cdn.skypack.dev/dayjs/plugin/relativeTime";
 import { Head } from "$fresh/runtime.ts";
+import { sha256 } from "../utils/crypt.ts";
 dayjs.extend(relativeTime);
 
 export const handler: Handlers = {
   async GET(req, ctx) {
-    // nice try, but you won't find anything here ;)
     if (
-      await bcrypt.compare(
-        ctx.params.id,
-        "$2a$10$9x1P9svXZnpfEi5SMmQRke4yiOqaaWEae9KlSZ2OgHWMZOCQMgvvK"
-      )
+      (await sha256(ctx.params.id)) ===
+      "36a6bfd910698b0bb2d5794d1024b2f0aaaa8d63e56500b9bfcf3af3e12e6c96"
     ) {
       const uuid = cookie.getCookies(req.headers)?.uuid;
 
