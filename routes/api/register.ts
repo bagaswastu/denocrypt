@@ -8,7 +8,7 @@ export const handler: Handlers = {
     console.log(cookies);
 
     if (cookies["uuid"]) {
-      const kv = await Deno.openKv("denocrypt");
+      const kv = await Deno.openKv();
       const user = await kv.get<User>(["users", cookies["uuid"]]);
 
       if (user) {
@@ -24,7 +24,7 @@ export const handler: Handlers = {
       isWinner: false,
     };
 
-    const kv = await Deno.openKv("denocrypt");
+    const kv = await Deno.openKv();
     const res = await kv.set(["users", data.uuid], data);
 
     if (!res.ok) {

@@ -22,7 +22,7 @@ export const handler: Handlers = {
         return ctx.renderNotFound();
       }
 
-      const kv = await Deno.openKv("denocrypt");
+      const kv = await Deno.openKv();
       const user = await kv.get<User>(["users", uuid]);
 
       if (!user.value) {
@@ -52,7 +52,7 @@ export const handler: Handlers = {
     const form = await req.formData();
     const name = form.get("name");
 
-    const kv = await Deno.openKv("denocrypt");
+    const kv = await Deno.openKv();
     const user = await kv.get<User>(["users", uuid]);
 
     if (!user.value) {

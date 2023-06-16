@@ -5,7 +5,7 @@ import { User } from "../utils/interface.ts";
 
 export const handler: Handlers = {
   async GET(req, ctx) {
-    const kv = await Deno.openKv("denocrypt");
+    const kv = await Deno.openKv();
 
     const users: User[] = [];
     const iter = kv.list<User>({ prefix: ["users"] });
