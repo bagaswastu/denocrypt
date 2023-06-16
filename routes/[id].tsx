@@ -16,8 +16,6 @@ export const handler: Handlers = {
     ) {
       const uuid = cookie.getCookies(req.headers)?.uuid;
 
-      console.log(uuid);
-
       if (!uuid) {
         return ctx.renderNotFound();
       }

@@ -5,10 +5,9 @@ import { User } from "../../utils/interface.ts";
 export const handler: Handlers = {
   async GET(req, _) {
     const cookies = cookie.getCookies(req.headers);
-    console.log(cookies);
 
     if (cookies["uuid"]) {
-      return new Response('ok');
+      return new Response("ok");
     }
 
     const data: User = {
@@ -31,10 +30,10 @@ export const handler: Handlers = {
       name: "uuid",
       value: data.uuid,
       expires: new Date(data.startTimestamp + 1000 * 60 * 60 * 24 * 365),
-      path: '/'
+      path: "/",
     });
-    
-    return new Response('ok', {
+
+    return new Response("ok", {
       headers,
     });
   },
